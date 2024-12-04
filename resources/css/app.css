@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+body {
+  @apply bg-gray-100
+}
+
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .stepper {
+  @apply w-full mx-auto my-8;
+} */
+
+.step {
+  @apply flex flex-col items-center text-center text-gray-500 w-full border py-2;
+}
+
+.step.active {
+  @apply text-orange-600;
+}
+
+.step-number {
+  @apply w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center;
+}
+
+.step.active .step-number {
+  @apply bg-orange-600 border-orange-600 text-white;
+}
+
+.step-title {
+  @apply mt-2 font-medium;
+}
+
+.content {
+  @apply mt-8 p-6 border border-gray-300 rounded-md;
+}
+
+@font-face  {
+    font-family: "regular";
+    src: local("Prompt-Regular"),
+    url('../../public/assets/fonts/Prompt-Regular.ttf') format("truetype");
+  }
+  
+  @font-face {
+    font-family: "medium";
+    src: local("Prompt-Medium"),
+    url('../../public/assets/fonts/Prompt-Medium.ttf') format("truetype");
+  }
+  
+  @font-face {
+    font-family: "semibold";
+    src: local("Prompt-SemiBold"),
+    url('../../public/assets/fonts/Prompt-SemiBold.ttf') format("truetype");
+  }
+  
+  @font-face {
+    font-family: "bold";
+    src: local("Prompt-Bold"),
+    url('../../public/assets/fonts/Prompt-Bold.ttf') format("truetype");
+  }

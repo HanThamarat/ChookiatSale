@@ -1,0 +1,45 @@
+services:
+    system:
+        build:
+            context: .docker
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: "${WWWGROUP}"
+        image: sail-8.3/app
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        ports:
+            - "${APP_PORT:-80}:80"
+            - "${VITE_PORT:-5173}:${VITE_PORT:-5173}"
+        environment:
+            WWWUSER: "${WWWUSER}"
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: "${SAIL_XDEBUG_MODE:-off}"
+            XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+            IGNITION_LOCAL_SITES_PATH: "${PWD}"
+        volumes:
+            - ".:/var/www/html"
+        networks:
+            - sail
+        depends_on:
+            - sqlserver
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        platform: linux/x86_64
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Soft@2K7
+            - MSSQL_PID=Express
+        ports:
+            - "1433:1433"
+        volumes:
+            - ./.docker/db:/var/opt/mssql
+        networks:
+            - sail
+
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sail-db:
+        driver: local
