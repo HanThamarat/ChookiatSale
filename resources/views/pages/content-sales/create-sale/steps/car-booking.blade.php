@@ -152,6 +152,8 @@
 <script>
     $(document).ready(function() {
         let downpay = 0;
+        let Totaldownpay = 0;
+        let TodalCarouting = 0;
 
         $("#CarModel").change(function (e) {
             e.preventDefault();
@@ -168,10 +170,12 @@
                 success: function (response) {
                     downpay = response.body[0].CarSalePrice;
                     // downpay = response.body[0].CarSalePrice * response.body[0].DownPayPercent / 100;
-                    $("#salePrice").val(response.body[0].CarSalePrice.toFixed(2));
-                    $("#DownPayCash").val(response.body[0].CarSalePrice.toFixed(2));
+                    $("#salePrice").val(Number(response.body[0].CarSalePrice).toFixed(2));
+                    $("#DownPayCash").val(Number(response.body[0].CarSalePrice).toFixed(2));
                 },
                 error: function (err) {
+                    $("#salePrice").val("");
+                    $("#DownPayCash").val("");
                     return console.log(err);
                 }
             });
@@ -179,9 +183,20 @@
 
         $("#DownPayPercent").change(function(e) {
             e.preventDefault();
-            let downPayPercent = $("#DownPayPercent").val();
-            Totaldownpay = downpay * downPayPercent / 100;
+            let downCash = $("#DownPayCash").val();
+            Totaldownpay = downpay * $("#DownPayPercent").val() / 100;
             $("#DownPayCash").val(Totaldownpay.toFixed(2));
-        })
+        });
+
+        $("#ExtraPay").change(function(e) {
+            e.preventDefault();
+            let downPay = Number($("#DownPayCash").val());
+            let downDiscount = Number($("#DownDiscount").val());
+            let bookCash = Number($("#BookingCash").val());
+            let tradeInCash = Number($("#TradeInCash").val());
+            let extraPay = Number($("#ExtraPay").val());
+            TodalCarouting = downpay - downDiscount - bookCash - tradeInCash + extraPay;
+            $("#TodalCarouting").val(Number(TodalCarouting).toFixed(2));
+        });
     })
 </script>

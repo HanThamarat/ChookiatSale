@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\DATA\CARS;
 
-use App\Models\DATA\CAR_COSTS;
-use App\Models\DATA\CAR_SALES;
+
+use App\Models\DATA\SaleCars;
 use App\Models\DATA\ACS;
+use App\Models\DATA\Customers;
+use App\Models\DATA\CAR_SALES;
 
 class SaleController extends Controller
 {
@@ -30,13 +32,18 @@ class SaleController extends Controller
                 if ($currentStep === 0) {
                     $render = view('pages.content-sales.create-sale.steps.booking-info')->render();
                 } else if ($currentStep === 1) {
+                    $cus = SaleCars::create([
+                        'CusID' => @$req->data['cusId'],
+                    ]);
                     $render = view('pages.content-sales.create-sale.steps.car-booking', compact('car'))->render();
-                } else if ($currentStep === 2) {
+                } else if ($currentStep === 3) {
                     $acs = ACS::all();
                     $render = view('pages.content-sales.create-sale.steps.accessory', compact('acs'))->render();
-                } else if ($currentStep === 3) {
+                } else if ($currentStep === 2) {
                     $render = view('pages.content-sales.create-sale.steps.promo-info')->render();
                 } else if ($currentStep === 4) {
+                    $render = view('pages.content-sales.create-sale.steps.total-sale')->render();
+                } else if ($currentStep === 5) {
                     $render = view('pages.content-sales.create-sale.steps.total-sale')->render();
                 }
 
@@ -53,7 +60,7 @@ class SaleController extends Controller
         } else if (@$page === 'car-price') {
             try {
                 $response = CAR_SALES::where("CarID", @$req->carModel)
-                ->whereRaw("StartDate <= DATE_FORMAT(CURRENT_DATE(), '%Y-%m-%d') or EndDate <= DATE_FORMAT(CURRENT_DATE(), '%Y-%m-%d') LIMIT 1")
+                ->whereRaw("StartDate <= FORMAT(GETDATE(), 'yyyy-MM-dd') or EndDate <= FORMAT(GETDATE(), 'yyyy-MM-dd')")
                 ->get();
 
                 if (count($response) === 0) {
@@ -77,6 +84,24 @@ class SaleController extends Controller
                 return response()->json([
                     "message" => "querying accessory price failed",
                 ]);
+            }
+        } else if (@$page === 'get-cusinfo') {
+            try {
+                $customer = Customers::where("id", @$req->cusId)->get();
+
+                if (!$customer) {
+                    throw new \Exception ("No customer found, please check your input");
+                }
+
+                return response()->json([
+                    "message" => "getting customer info successfully",
+                    "body" => $customer,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    "message" => "getting customer info failed",
+                    "error" => $e->getMessage(),
+                ], 500);
             }
         }
     }
