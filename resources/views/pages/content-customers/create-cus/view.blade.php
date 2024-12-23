@@ -115,6 +115,24 @@
                             ])
                         @endcomponent
                     </div>
+                    <div class="w-full px-4 grid grid-cols-2 gap-3">
+                        @component('components.content-input.input-field')
+                            @slot('data', [
+                                    "label" => "เบอร์โทรศัพท์",
+                                    "id" => "PhoneNumber",
+                                    "type" => "text",
+                                    "name" => "PhoneNumber"
+                                ])
+                        @endcomponent
+                        @component('components.content-input.input-field')
+                            @slot('data', [
+                                    "label" => "เบอร์โทรศัพท์บ้าน",
+                                    "id" => "PhoneHouse",
+                                    "type" => "text",
+                                    "name" => "PhoneHouse"
+                                ])
+                        @endcomponent
+                    </div>
                     <div class="w-full px-4 flex justify-between gap-x-3">
                         <div class="w-full">
                             <span>Address</span>

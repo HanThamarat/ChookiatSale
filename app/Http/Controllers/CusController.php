@@ -8,7 +8,7 @@ use App\Models\DATA\Customers;
 class CusController extends Controller
 {
     public function index(Request $req) {
-       
+
     }
 
     public function store(Request $req) {
@@ -31,6 +31,8 @@ class CusController extends Controller
                     "FacebookName" => $datass["facebook"],
                     "LineID" => $datass["line"],
                     "Address" => $datass["Address"],
+                    "Mobilephone1" => $datass["PhoneNumber"],
+                    "Mobilephone2" => $datass["PhoneHouse"],
                     "PostAddress" => $datass["PostAddress"],
                 ]);
 
@@ -51,7 +53,7 @@ class CusController extends Controller
 
                 if (count($response) === 0) {
                     throw new \Exception ("not found this customers, please try again");
-                } 
+                }
 
                 return response()->json([
                     "message" => "Querying customer success",

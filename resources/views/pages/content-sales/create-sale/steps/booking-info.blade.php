@@ -15,17 +15,17 @@
             @component('components.content-input.input-field')
                 @slot('data', [
                     "label" => "House Phone",
-                    "id" => "CusName",
+                    "id" => "HousePhone",
                     "type" => "text",
-                    "name" => "CusName"
+                    "name" => "HousePhone"
                 ])
             @endcomponent
             @component('components.content-input.input-field')
                 @slot('data', [
                     "label" => "Phone number",
-                    "id" => "CusName",
+                    "id" => "PhoneNumber",
                     "type" => "text",
-                    "name" => "CusName"
+                    "name" => "PhoneNumber"
                 ])
             @endcomponent
         </div>
@@ -33,19 +33,48 @@
             @component('components.content-input.textarea')
                 @slot('data', [
                     "title" => "Current Address",
-                    "id" => "CusName",
+                    "id" => "Address",
                     "type" => "text",
-                    "name" => "CusName"
+                    "name" => "Address"
                 ])
             @endcomponent
             @component('components.content-input.textarea')
                 @slot('data', [
                     "title" => "Address for document",
-                    "id" => "CusName",
+                    "id" => "AddressForDoc",
                     "type" => "text",
-                    "name" => "CusName"
+                    "name" => "AddressForDoc"
                 ])
             @endcomponent
         </div>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        var searchParams = new URLSearchParams(window.location.search);
+        var cusId = searchParams.get('cusId');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('sales.store') }}",
+            data: {
+                pages: 'get-cusinfo',
+                cusId: cusId,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (res) {
+                console.log(res);
+                console.log(res.body[0]);
+                $("#CusName").val(res.body[0].FirstName + ' ' + res.body[0].LastName);
+                $("#HousePhone").val(res.body[0].Mobilephone1);
+                $("#PhoneNumber").val(res.body[0].Mobilephone2);
+                $("#Address").val(res.body[0].Address);
+                $("#AddressForDoc").val(res.body[0].PostAddress);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    })
+</script>

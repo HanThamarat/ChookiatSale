@@ -10,7 +10,7 @@
                             <th class="bg-orange-300 py-1 rounded-l-md">Customer ID</th>
                             <th class="bg-orange-300 py-1">Customer Name</th>
                             <th class="bg-orange-300 py-1">Customer Phone</th>
-                            <th class="bg-orange-300 py-1">Booking Date</th>
+                            <th class="bg-orange-300 py-1">House Phone</th>
                             <th class="bg-orange-300 py-1 rounded-r-md">Action</th>
                         </tr>
                     </thead>
@@ -19,8 +19,8 @@
                             <tr class="text-center">
                                 <td class="py-2">{{ $key + 1 }}</td>
                                 <td>{{ $customer->FirstName }} {{ $customer->MiddleName }} {{ $customer->LastName }}</td>
-                                <td>{{ $customer->Mobilephone1 }}</td>
-                                <td>{{ $customer->email }}</td>
+                                <td>{{ $customer->Mobilephone1 === null ? '-' : $customer->Mobilephone1 }}</td>
+                                <td>{{ $customer->Mobilephone2 === null ? '-' : $customer->Mobilephone2 }}</td>
                                 <td>
                                     <div class="flex justify-center">
                                         <a href="{{ route('views.index') }}?page={{ 'customer-info' }}&cusId={{ @$customer->id }}"><i class="text-[20px] text-orange-500 hover:text-orange-600 duration-100 ease-in-out fa-solid fa-circle-info"></i></a>

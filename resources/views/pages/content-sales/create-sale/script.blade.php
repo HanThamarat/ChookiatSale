@@ -30,11 +30,23 @@
         }
 
         function getStepElements(currentStep) {
+            let data = {};
+            const urlParams = new URLSearchParams(window.location.search);
+            if (currentStep === 1) {
+                $("#CusData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
+                data['CusId'] = urlParams.get('cusId');
+            }
+
+            console.log(data);
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('sales.store') }}",
                 data: {
                     currentStep: currentStep,
+                    data: data,
                     pages:'step-content',
                     _token: "{{ csrf_token() }}"
                 },

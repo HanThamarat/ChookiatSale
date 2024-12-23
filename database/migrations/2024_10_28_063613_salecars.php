@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('DeliveryInDMSDate')->nullable();
             $table->date('DeliveryInCKDate')->nullable();
             $table->date('RegistrationProvince')->nullable();
-            $table->enum('RedPlateReceived', ['yes', 'no'])->nullable();
+            $table->string('RedPlateReceived')->nullable();
             $table->float('RedPlateAmount')->nullable();
             $table->float('CarSalePrice')->nullable();
             $table->float('MarkupPrice')->nullable();
@@ -61,6 +61,7 @@ return new class extends Migration
             $table->integer('CheckerID')->nullable();
             $table->date('CheckerCheckedDate')->nullable();
             $table->string('Note')->nullable();
+            $table->string('Steps')->nullable();
             $table->timestamps();
         });
     }

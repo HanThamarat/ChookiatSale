@@ -12,7 +12,7 @@ class SaleCars extends Model
     use HasFactory;
     protected $table = 'saleCars';
     protected $fillable = [
-        'KeyInDate', 'CusID', 'CarID', 'SaleConsultantID', 'FinanceID', 'BookingDate', 'DeliveryDate', 
+        'KeyInDate', 'CusID', 'CarID', 'SaleConsultantID', 'FinanceID', 'BookingDate', 'DeliveryDate',
         'DeliveryInDMSDate', 'DeliveryInCKDate', 'RegistrationProvince', 'RedPlateReceived',
         'RedPlateAmount', 'CarSalePrice', 'MarkupPrice', 'CarSalePriceFinal', 'DownPayment',
         'DownPaymentPercentage', 'CashDeposit', 'TradeinAddition', 'AdditionFromCustomer',
