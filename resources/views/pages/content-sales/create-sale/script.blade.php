@@ -6,7 +6,9 @@
         const prevButton = document.querySelector('.prev-button');
         const nextButton = document.querySelector('.next-button');
 
-        let currentStep = 0;
+        let currentStep = "{{ @$sale[0]->Steps }}" || 0;
+
+
 
         function updateStepper() {
             $('.loading-steps').removeClass('hidden');
@@ -22,6 +24,15 @@
             }
             });
 
+            const inputs = document.querySelectorAll('.campaign-container input');
+            console.log('test:', inputs);
+
+            let values = [];
+            inputs.forEach(input => {
+                console.log('imput:' + input);
+                values.push(input.value);
+            });
+
             getStepElements(currentStep);
 
             // Update button states
@@ -32,14 +43,36 @@
         function getStepElements(currentStep) {
             let data = {};
             const urlParams = new URLSearchParams(window.location.search);
+            data['CusId'] = urlParams.get('cusId');
+            data['SaleId'] = urlParams.get('saleId');
+
+            // console.log(values);
+            // data['capaigns'] = values
             if (currentStep === 1) {
                 $("#CusData").serializeArray().map(function(d) {
                     data[d.name] = d.value;
                 });
-                data['CusId'] = urlParams.get('cusId');
+            } else if (currentStep === 2) {
+                $("#CarData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
+            } else if (currentStep === 3) {
+                $("#CompaignData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
+            } else if (currentStep === 4) {
+                $("#InsuranceData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
+            } else if (currentStep === 5) {
+                $("#AccessoriesData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
+            } else if (currentStep === 6) {
+                $("#SummaryData").serializeArray().map(function(d) {
+                    data[d.name] = d.value;
+                });
             }
-
-            console.log(data);
 
             $.ajax({
                 type: "POST",

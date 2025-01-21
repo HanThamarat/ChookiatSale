@@ -48,21 +48,34 @@ body {
     src: local("Prompt-Regular"),
     url('../../public/assets/fonts/Prompt-Regular.ttf') format("truetype");
   }
-  
+
   @font-face {
     font-family: "medium";
     src: local("Prompt-Medium"),
     url('../../public/assets/fonts/Prompt-Medium.ttf') format("truetype");
   }
-  
+
   @font-face {
     font-family: "semibold";
     src: local("Prompt-SemiBold"),
     url('../../public/assets/fonts/Prompt-SemiBold.ttf') format("truetype");
   }
-  
+
   @font-face {
     font-family: "bold";
     src: local("Prompt-Bold"),
     url('../../public/assets/fonts/Prompt-Bold.ttf') format("truetype");
+  }
+
+  /* add the code bellow */
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
   }

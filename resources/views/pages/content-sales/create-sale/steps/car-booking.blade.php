@@ -2,7 +2,7 @@
     <div class="text-[20px] font-primaryMedium text-orange-500">
         <span>Car Models</span>
     </div>
-    <form id="CusData">
+    <form id="CarData">
         <div class="grid grid-cols-3 gap-x-3 mt-3">
             @component('components.content-input.select-option')
                 @slot('data', [
@@ -82,22 +82,21 @@
                     "name" => "TodalCarouting"
                 ])
             @endcomponent
-            @component('components.content-input.input-field')
-                @slot('data', [
-                    "label" => "ไฟแนนซ์",
-                    "id" => "finance",
-                    "type" => "text",
-                    "name" => "finance"
-                ])
-            @endcomponent
-            @component('components.content-input.input-field')
-                @slot('data', [
-                    "label" => "แคมเปญดอกเบี้ย",
-                    "id" => "finance",
-                    "type" => "text",
-                    "name" => "finance"
-                ])
-            @endcomponent
+            <select name="finance" class="h-11 w-full border-gray-300 rounded-xl">
+                <option value="">-- select finance --</option>
+                @foreach ($finance as $key => $item)
+                    <option value="{{ @$item->id }}">{{ @$item->FinanceCompany }}</option>
+                @endforeach
+            </select>
+            <select id="intCamTyp" name="interestCampaignTyp" class="h-11 w-full border-gray-300 rounded-xl">
+                <option value="">-- Select Interest Compaign Type --</option>
+                @foreach ($intcamtyp as $key => $item)
+                    <option value="{{ @$item->id }}">{{ @$item->Name_TH }}</option>
+                @endforeach
+            </select>
+            <select id="interestCampaign" name="interestCampaign" class="h-11 w-full border-gray-300 rounded-xl">
+                <option value="">-- Select Interest Compaign --</option>
+            </select>
             @component('components.content-input.input-field')
                 @slot('data', [
                     "label" => "ยอดจัด",
@@ -197,6 +196,30 @@
             let extraPay = Number($("#ExtraPay").val());
             TodalCarouting = downpay - downDiscount - bookCash - tradeInCash + extraPay;
             $("#TodalCarouting").val(Number(TodalCarouting).toFixed(2));
+        });
+
+        $("#intCamTyp").on('change', function() {
+            let intCam = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('sales.store') }}",
+                data: {
+                    pages: 'search-intcamtyp',
+                    intCamType: intCam,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (res) {
+                    $("#interestCampaign").empty();
+                    $.each(res.body, function(index, items) {
+                        console.log(items);
+                        $("#interestCampaign").append('<option value="' + items.id + '">' + items.CashSupport + '(' + items.PercentIntCom + '%)' + '</option>');
+                    })
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+            });
         });
     })
 </script>

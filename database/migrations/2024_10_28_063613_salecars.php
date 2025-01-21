@@ -30,6 +30,7 @@ return new class extends Migration
             $table->float('CarSalePriceFinal')->nullable();
             $table->float('DownPayment')->nullable();
             $table->float('DownPaymentPercentage')->nullable();
+            $table->float('DownPaymentDiscount')->nullable();
             $table->float('CashDeposit')->nullable();
             $table->float('TradeinAddition')->nullable();
             $table->float('AdditionFromCustomer')->nullable();

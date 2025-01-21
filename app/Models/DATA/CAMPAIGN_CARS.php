@@ -11,7 +11,7 @@ class CAMPAIGN_CARS extends Model
 {
     use HasFactory;
     protected $table = 'campaignCars';
-    protected $fillable = ['CarID', 'CampaignTYP', 'SubCampaignID', 'SubCampaignType', 'CashSupport', 'CashSupportDeduct', 'CashSupportFinal','StartDate', 'EndDate'];
+    protected $fillable = ['id', 'CarID', 'CampaignTYP', 'SubCampaignID', 'SubCampaignType', 'CashSupport', 'CashSupportDeduct', 'CashSupportFinal','StartDate', 'EndDate'];
 
     public function ToCar() {
         return $this->hasOne(CARS::class, 'id', 'CarID');
