@@ -13,4 +13,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::resource('acs', App\Http\Controllers\AcsController::class);
     Route::resource('carstock', App\Http\Controllers\CarStockController::class);
     Route::resource('sales', App\Http\Controllers\SaleController::class);
+    Route::resource('systems', App\Http\Controllers\SystemController::class);
 });

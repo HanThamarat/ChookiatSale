@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sscCommission', function (Blueprint $table) {
+        Schema::create('ssCommission', function (Blueprint $table) {
             $table->id();
             $table->integer('saleID')->nullable();
             $table->integer('sscID')->nullable();
@@ -21,26 +21,26 @@ return new class extends Migration
             $table->date('SSIInterviewDate1')->nullable();
             $table->date('SSIInterviewDate2')->nullable();
             $table->date('SSIInterviewDate3')->nullable();
-            $table->enum('InterviewStatus', ["can_not_contact", "can_contact_call_missed", "phone_number_notfound"])->nullable();
-            $table->enum('DW', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('DF', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('SC', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('DEAL', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('PC', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('DP', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
-            $table->enum('FU', ["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])->default('0');
+            $table->string('InterviewStatus')->nullable();
+            $table->string('DW')->default('0');
+            $table->string('DF')->default('0');
+            $table->string('SC')->default('0');
+            $table->string('DEAL')->default('0');
+            $table->string('PC')->default('0');
+            $table->string('DP')->default('0');
+            $table->string('FU')->default('0');
             $table->integer('SSL')->default(0);
-            $table->enum('MMTH', ["yes","no"])->default('no');
+            $table->string('MMTH')->default('no');
             $table->integer('SSL_FROM_MMTH')->default(0);
-            $table->enum('RedAlert', ["yes","no"])->default('no');
-            $table->enum('SllST', ["success","problem"])->nullable();
-            $table->enum('ChangtingST', ["success","waiting"])->default('waiting');
+            $table->string('RedAlert')->default('no');
+            $table->string('SllST')->nullable();
+            $table->string('ChangtingST')->default('waiting');
             $table->date('ChangtingSTDate')->nullable();
             $table->float('TotalPayFromAdmin')->nullable();
             $table->float('TotalPayCus')->nullable();
             $table->float('TotalOtherPay')->nullable();
-            $table->enum('Payment', ["tranfer","cash"])->nullable();
-            $table->enum('PaymentST', ["success","problem"])->nullable();
+            $table->string('Payment')->nullable();
+            $table->string('PaymentST')->nullable();
             $table->timestamps();
         });
     }

@@ -16,10 +16,12 @@ use App\Models\DATA\ACS;
 use App\Models\DATA\CARS;
 use App\Models\DATA\AccessoryCosts;
 use App\Models\DATA\CAR_COSTS;
+use Exception;
 
 class pageController extends Controller {
     public function index(Request $req) {
-        $page = $req->page;
+        $page = @$req->page;
+        $data = @$req->data;
         if (empty(@$page) || @$page === 'home') {
             return view('pages.content-home.view');
         } else if (@$page === 'create-customer') {
@@ -66,12 +68,22 @@ class pageController extends Controller {
         } else if (@$page === 'search-sale') {
             return view('pages.content-sales.view');
         } else if (@$page === 'create-sale') {
-            $customers = Customers::where('id', $req->cusId)->get();
-            return view('pages.content-sales.create-sale.view', compact('customers'));
+            $customers = Customers::where('id', @$req->cusId)->get();
+            $sale = SaleCars::where('id', @$req->saleId)->get();
+            return view('pages.content-sales.create-sale.view', compact('customers', 'sale'));
+        } else if (@$page === 'system-config') {
+            try {
+                return view('pages.system-configs.view');
+            } catch (Exception $e) {
+                return response()->json([
+                    "message" => "Error on store",
+                    "error" => $e->getMessage(),
+                ], 500);
+            }
         }
     }
 
     public function store(Request $req) {
-       
+
     }
 }

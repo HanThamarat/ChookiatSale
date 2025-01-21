@@ -15,10 +15,10 @@
                             $text = Auth::user()->name;
                             $textSplit = explode(" ", $text);
                             if (empty($textSplit[1])) {
-                                $substring = substr($textSplit[0], 0, 1);
+                                $substring = strtoupper(substr($textSplit[0], 0, 1));
                             } else {
-                                $sub01 = substr($textSplit[0], 0, 1);
-                                $sub02 = substr($textSplit[1], 0, 1);
+                                $sub01 = strtoupper(substr($textSplit[0], 0, 1));
+                                $sub02 = strtoupper(substr($textSplit[1], 0, 1));
                                 $substring = $sub01.$sub02;
                             }
                         @endphp
@@ -37,29 +37,33 @@
                         </span>
                     @endif
                 </x-slot>
-        
+
                 <x-slot name="content">
                     <!-- Account Management -->
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ __('Manage Account') }}
                     </div>
-        
+
                     <x-dropdown-link href="{{ route('profile.show') }}">
                         {{ __('Profile') }}
                     </x-dropdown-link>
-        
+
+                    <x-dropdown-link href="{{ route('views.store') }}?page={{ 'system-config' }}">
+                        {{ __('Settings') }}
+                    </x-dropdown-link>
+
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                         <x-dropdown-link href="{{ route('api-tokens.index') }}">
                             {{ __('API Tokens') }}
                         </x-dropdown-link>
                     @endif
-        
+
                     <div class="border-t border-gray-200"></div>
-        
+
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
-        
+
                         <x-dropdown-link href="{{ route('logout') }}"
                                  @click.prevent="$root.submit();">
                             {{ __('Log Out') }}

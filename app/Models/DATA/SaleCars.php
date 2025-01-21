@@ -21,7 +21,7 @@ class SaleCars extends Model
         'RemainingCashSuuportShared', 'SCCommissionIntPlus', 'AccessoryComAmount', 'Trade-inComAmount',
         'CommissionDeduct', 'ApprovalSignature', 'FinanceAmount', 'InterestRate', 'InterestCampaignID',
         'InstallmentPeriod', 'EXC_ALP', 'INC_ALP', 'ALPAmount', 'SMSignature', 'SMCheckedDate', 'AdminSignature',
-        'AdminCheckedDate', 'CheckerID', 'CheckerCheckedDate', 'Note'
+        'AdminCheckedDate', 'CheckerID', 'CheckerCheckedDate', 'Note', 'Steps'
     ];
 
     public function ToCus() {
